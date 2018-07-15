@@ -1,0 +1,122 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="description" content="万古长空，一朝风月。"><meta name="keyword"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>python3-re</title><link rel="shortcut icon" href="/images/1.jpg" type="image/x-icon"><link href="/styles/site.css" rel="stylesheet"></head><body><header class="container" id="header"><div class="header"><div class="header-left"><div class="avatar"><img src="/images/1.jpg"></div><div class="author"><div class="author-name"><a href="/">Feng</a></div><div class="about-me">meet</div></div></div><div class="header-right"><ul class="navigation"><li><a href="/archives">归档</a></li></ul></div><div class="about-me-mask"><div class="about-me-wrap"><div class="about-me__header"><div class="avatar"><img src="/images/1.jpg"></div></div><ul class="socials"><li class="social-item"><span class="label"><img src="/images/socials/github.svg" alt="https://github.com/gary-Shen"></span><a href="https://github.com/gary-Shen" target="_blank" title="https://github.com/gary-Shen">https://github.com/gary-Shen</a></li><li class="social-item"><span class="label"><img src="/images/socials/email.svg" alt="guanlinshen@126.com"></span><span>guanlinshen@126.com</span></li><li class="social-item"><span class="label"><img src="/images/socials/wechat.svg" alt="Grinson"></span><span>Grinson</span></li></ul></div></div></div></header><div class="container post"><section class="article"><div class="title">python3-re</div><div class="date">写于2018年07月13日</div><div class="content"><h1 id="python3中正表达式中的用法笔记"><a href="#python3中正表达式中的用法笔记" class="headerlink" title="python3中正表达式中的用法笔记"></a>python3中正表达式中的用法笔记</h1><p>由于自己对正则表达式不是很熟悉，自己就重新学习了一下这个正则表达式。下面是我学习正则表达式的一些笔记，自己主要是用于备忘与查询<br><a id="more"></a></p>
+<h3 id="1、元字符"><a href="#1、元字符" class="headerlink" title="1、元字符"></a>1、元字符</h3><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>\</td>
+<td>转义符，表示转义</td>
+</tr>
+<tr>
+<td>2</td>
+<td>.</td>
+<td>表示任意一个字符</td>
+</tr>
+<tr>
+<td>3</td>
+<td>+</td>
+<td>重复一次或者多次</td>
+</tr>
+<tr>
+<td>4</td>
+<td>*</td>
+<td>重复零次或者多次</td>
+</tr>
+<tr>
+<td>5</td>
+<td>?</td>
+<td>重复零次或者一次</td>
+</tr>
+<tr>
+<td>6</td>
+<td>\</td>
+<td></td>
+<td>选择符号，表示“或关系”，例如A\</td>
+<td>B 表示匹配A或B</td>
+</tr>
+<tr>
+<td>7</td>
+<td>{}</td>
+<td>定义量词</td>
+</tr>
+<tr>
+<td>8</td>
+<td>[]</td>
+<td>定义字符类</td>
+</tr>
+<tr>
+<td>9</td>
+<td>()</td>
+<td>定义分组</td>
+</tr>
+<tr>
+<td>10</td>
+<td>^</td>
+<td>可以表示取反， 或者匹配一行的开始</td>
+</tr>
+<tr>
+<td>11</td>
+<td>$</td>
+<td>匹配一行的结束</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">p1 = <span class="string">r'\w+@zhijieketang\.com'</span>  <span class="comment">#没有规定字符位置匹配字符</span></span><br><span class="line">p2 = <span class="string">r'^\w+@zhijieketang\.com$'</span>  <span class="comment">#规定了必须要以.com结尾</span></span><br><span class="line"></span><br><span class="line">text = <span class="string">"Tony's email is tony_guan588@zhijieketang.com."</span></span><br><span class="line"></span><br><span class="line">m =  re.search(p1, text)<span class="comment">#p1与text匹配</span></span><br><span class="line"><span class="comment">#输出为&lt;_sre.SRE_Match object; span=(16, 45), match='tony_guan588@zhijieketang.com'&gt;</span></span><br><span class="line">print(m) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">m =  re.search(p2, text) <span class="comment">#p2与text匹配</span></span><br><span class="line"><span class="comment">#输出为None</span></span><br><span class="line">print(m)</span><br><span class="line"></span><br><span class="line">email = <span class="string">'tony_guan588@zhijieketang.com'</span></span><br><span class="line">m =  re.search(p2, email)<span class="comment">#p2与email匹配</span></span><br><span class="line"><span class="comment">#输出为&lt;_sre.SRE_Match object; span=(0, 29), match='tony_guan588@zhijieketang.com'&gt;</span></span><br><span class="line">print(m)</span><br></pre></td></tr></table></figure>
+<h3 id="2、预定义字符类"><a href="#2、预定义字符类" class="headerlink" title="2、预定义字符类"></a>2、预定义字符类</h3><p>==这里包括一些长用的字符表现形式，我们在c语言中经常使用==<br>字符 | 说明<br>–|–<br>. | 匹配任意一个字符<br>\\ | 匹配反斜杠\字符<br>\n | 匹配换行<br>\r | 匹配回车<br>\f | 匹配一个换页符<br>\t | 匹配一个水平制表符<br>\v | 匹配一个垂直制表符<br>\s | 匹配一个空格符，等价于[\n\r\f\t\v]<br>\S | 匹配一个非空格符，等价于[^\s]<br>\d | 匹配一个数字字符，等价于[0-9]<br>\D | 匹配一个非数字字符，等价于[^0-9]<br>\w | 匹配任何语言的单词字符(如：英文字母、亚洲文字)、数字和下划线(_)等字符。如果正则表达式编译标志设置为ASCII，则指匹配[a-z0-9A-Z]<br>\W | 相当于[6\w]</p>
+<h3 id="3、字符类"><a href="#3、字符类" class="headerlink" title="3、字符类"></a>3、字符类</h3><p>这里主要包含着如何定义一个字符类(与其他的字符类是<br>不同的这里面主要使用 <code>[]</code> 来做定义类。)</p>
+<p><code>r&#39;[0123456789]&#39;</code> 表示数字集</p>
+<p><code>r&#39;[^0123456789]&#39;</code> 表示非数字集</p>
+<h3 id="4、区间"><a href="#4、区间" class="headerlink" title="4、区间"></a>4、区间</h3><p>区间是用 <code>-</code> 表示的</p>
+<p>数字字符类 <code>[0123456789]</code> 表示为 <code>[0-9]</code><br><br><br><br>区间主要是使用在如果使用字符类， 则串里面的内容比较长，如果使用区间表示比较简单<br><br>小写字母字符类 <code>[a-z]</code> <br><br>大写字母字符类 <code>[A-z]</code> <br><br>还可以使用间隔 <code>[0-25-7]</code>表示0、1、2、5、6、7<br></p>
+<h3 id="5、量词"><a href="#5、量词" class="headerlink" title="5、量词"></a>5、量词</h3><table>
+<thead>
+<tr>
+<th>字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>？</td>
+<td>出现==一==次或==零==次</td>
+</tr>
+<tr>
+<td>*</td>
+<td>出现==多==次或==零==次</td>
+</tr>
+<tr>
+<td>+</td>
+<td>出现==一==次或==多==次</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>出现==零==或==n==次</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>至少出现==n==次，但不超过==m==次</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>至少出现n次</td>
+</tr>
+<tr>
+<td>{n, m}?</td>
+<td>只匹配5个，惰性量词</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6、分组"><a href="#6、分组" class="headerlink" title="6、分组"></a>6、分组</h3><p>自此之前学习量词只能重复显示一个字符， 如果想让一个字符串作为整体使用量词，可将这个字符串发放到一对小括号中。这就是分组。<br></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">p = <span class="string">r'(121)&#123;2&#125;'</span> <span class="comment">#正则表达式，并且创建分组(121)并且重复2次</span></span><br><span class="line">m = re.search(p, <span class="string">'121121abcabc'</span>)</span><br><span class="line"></span><br><span class="line">print(m)</span><br><span class="line">print(m.group()) <span class="comment">#返回匹配的字符串 打印121121</span></span><br><span class="line">print(m.group(<span class="number">1</span>)) <span class="comment">#返回自一个组的内容 打印121</span></span><br><span class="line">print(m.groups()) <span class="comment">#返回所有组的内容 打印('121',)</span></span><br><span class="line"></span><br><span class="line">p = <span class="string">r'(121)&#123;2&#125;(abc)&#123;2&#125;'</span></span><br><span class="line">m = re.search(p, <span class="string">'121121abcabc'</span>)</span><br><span class="line">print(m.group()) <span class="comment">#打印121121abcabc</span></span><br><span class="line">print(m.group(<span class="number">1</span>)) <span class="comment">#打印121</span></span><br><span class="line">print(m.groups()) <span class="comment">#打印('121', 'abc')</span></span><br></pre></td></tr></table></figure>
+<p>分组还可以通过分组名字来访问<br><br>格式:p = r’(?P&lt;area_code&gt;\d{3,4})-(?P&lt;num_code&gt;\d{7,8})’<br><br> (？P<name>匹配串)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">p = <span class="string">r'(\d&#123;3,4&#125;)-(\d&#123;7,8&#125;)'</span> <span class="comment">#正则表达式，建立区号和电话号码</span></span><br><span class="line">m = re.search(p, <span class="string">'0792-87654321'</span>)</span><br><span class="line"></span><br><span class="line">print(m)</span><br><span class="line">print(m.group(<span class="number">1</span>)) </span><br><span class="line">print(m.group(<span class="number">2</span>)) </span><br><span class="line">print(m.groups())</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">&lt;_sre.SRE_Match object; span=(0, 13), match='0792-87654321'&gt;</span></span><br><span class="line"><span class="string">0792</span></span><br><span class="line"><span class="string">87654321</span></span><br><span class="line"><span class="string">('0792', '87654321')</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line">p = <span class="string">r'(?P&lt;area_code&gt;\d&#123;3,4&#125;)-(?P&lt;num_code&gt;\d&#123;7,8&#125;)'</span> <span class="comment">#区号命名为area_code,电话号码命名为num_code</span></span><br><span class="line">m = re.search(p, <span class="string">'0792-87654321'</span>)</span><br><span class="line"></span><br><span class="line">print(m.group(<span class="number">1</span>)) <span class="comment">#通过分组号访问</span></span><br><span class="line">print(m.group(<span class="number">2</span>)) </span><br><span class="line">print(m.group(<span class="string">"area_code"</span>))  <span class="comment">#通过定义的名字来访问 </span></span><br><span class="line">print(m.group(<span class="string">"num_code"</span>)) </span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">0792</span></span><br><span class="line"><span class="string">87654321</span></span><br><span class="line"><span class="string">0792</span></span><br><span class="line"><span class="string">87654321</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="comment">#通过名字与编号访问结果式一样的</span></span><br></pre></td></tr></table></figure></name></p>
+<p>通过反向引用分组能获取特定的标签<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">p = <span class="string">r'&lt;([\w]+)&gt;.*&lt;/([\w]+)&gt;'</span>  <span class="comment">#这是正常分组</span></span><br><span class="line">m = re.search(p, <span class="string">'&lt;a&gt;aaa&lt;/a&gt;'</span>)</span><br><span class="line"></span><br><span class="line">print(m) <span class="comment">#能但会匹配结果</span></span><br><span class="line">m = re.search(p, <span class="string">'&lt;a&gt;aaa&lt;/b&gt;'</span>)</span><br><span class="line"></span><br><span class="line">print(m) <span class="comment">#能返回匹配结果</span></span><br><span class="line">p = <span class="string">r'&lt;([\w]+)&gt;.*&lt;/\1&gt;'</span>  <span class="comment">#这是反向引用分组</span></span><br><span class="line">m = re.search(p, <span class="string">'&lt;a&gt;aaa&lt;/a&gt;'</span>)</span><br><span class="line"></span><br><span class="line">print(m) <span class="comment">#能返回匹配结果</span></span><br><span class="line">m = re.search(p, <span class="string">'&lt;a&gt;aaa&lt;/b&gt;'</span>)</span><br><span class="line"></span><br><span class="line">print(m) <span class="comment">#不能返回，直接返回None</span></span><br></pre></td></tr></table></figure></p>
+<p>在日常的时候我们，有时候想要返回某个文件的内容，返货全部的名称。但是使用普通的分组是不能使用的，这个时候我们需要使用<code>非捕获分组</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re </span><br><span class="line">s = <span class="string">'img1.jpg, img2.jpg, img3.bmp'</span></span><br><span class="line">p = <span class="string">r'\w+(\.jpg)'</span>  <span class="comment">#正常分组</span></span><br><span class="line">m = re.findall(p, s) </span><br><span class="line">print(m)  <span class="comment">#输出['.jpg', '.jpg']</span></span><br><span class="line">p = <span class="string">r'\w+(?:\.jpg)'</span>  <span class="comment">#采用非捕获分组</span></span><br><span class="line">m = re.findall(p, s) </span><br><span class="line">print(m) <span class="comment">#输出['img1.jpg', 'img2.jpg']</span></span><br></pre></td></tr></table></figure></p>
+</div><div class="tags"></div></section></div><div class="container"><ul class="nav"><li>下一篇：<a href="/2018/04/15/markdown学习笔记/">markdown学习笔记</a></li></ul></div><div id="backToTop"><div class="back-arrow back-arrow-left"></div><div class="back-arrow back-arrow-right"></div></div><footer class="container"><div class="rights"><span>Powered by </span><a href="http://hexo.io" target="_blank">Feng</a><span>, welcome</span><a href="https://github.com/FengShangjie" target="_blank">myGit </a><span>.</span></div></footer><script src="/script/jquery.min.js"></script><link rel="stylesheet" href="/fancybox/jquery.fancybox.css"><script src="/fancybox/jquery.fancybox.pack.js"></script><script src="/script/index.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-61220413-1', 'auto');
+ga('send', 'pageview');</script><script src="/script/jquery.min.js"></script><link rel="stylesheet" href="/fancybox/jquery.fancybox.css"><script src="/fancybox/jquery.fancybox.pack.js"></script><script src="/script/index.js"></script><script src="/script/post.js"></script></body></html>
